@@ -9,4 +9,4 @@
 
 The camera is therefore also placed with a positive z (x: -0.8, y: 1.4, z: 4.0).
 
-See it [live on rawgit](https://rawgit.com/ReneNyffenegger/about-three.js/master/basics/coordinates.html).
+See it [live on rawgit](https://rawgit.com/ReneNyffenegger/about-three.js/master/basics/coordinates.html) (yet, it does not seem to work...).
