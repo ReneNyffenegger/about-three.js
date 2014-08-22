@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <title>three.js - requestAnimationFrame</title>
+
+  <style type="text/css">
+
+    body {margin          : 0;
+          padding         : 0;
+          overflow        : hidden;
+          background-color:#010316;
+         }
+
+  </style>
+
+  <script type="text/javascript" src="http://threejs.org/build/three.min.js"></script>
+  <script type="text/javascript" src="https://raw.githubusercontent.com/mrdoob/three.js/master/examples/js/Detector.js"></script>
+
+  <script type="text/javascript">
+
+    //  Global variables, used in init() and animate()
+    var plane,
+        scene,
+        camera,
+        renderer;
+
+    function main() {
+        init   ();
+        animate();
+    }
+
+    function init() {
+
+        var SCREEN_WIDTH  = window.innerWidth;
+        var SCREEN_HEIGHT = window.innerHeight;
+  
+        scene = new THREE.Scene();
+  
+        camera = new THREE.PerspectiveCamera( 
+               45                          , // view angle
+               SCREEN_WIDTH / SCREEN_HEIGHT, // aspect
+               0.1                         , // near
+               17000000);                    // far
+  
+               camera.position.set(-.5, 2.0, 3.0);
+               camera.lookAt(scene.position);   // TODO
+  
+        renderer = Detector.webgl ? 
+                       new THREE.WebGLRenderer( {antialias:true} ) :
+                       new THREE.CanvasRenderer(); 
+        
+        renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+        document.body.appendChild(renderer.domElement);
+  
+        var geometry = new THREE.PlaneGeometry(2, 2); 
+        var material = new THREE.MeshBasicMaterial( {color: 0xffaa44,side: THREE.DoubleSide} );
+            plane    = new THREE.Mesh(geometry, material);
+  
+        plane.rotation.x = Math.PI / 2;
+     
+        scene.add(camera);
+        scene.add(plane);
+
+    }
+
+    function animate() {
+      
+        requestAnimationFrame(animate);
+
+        plane.rotation.z += 0.005;
+
+        renderer.render(scene, camera);
+    }
+
+  </script>
+
+</head>
+
+<body onload='main();'></body>
+
+</html>
