@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <title>three.js - MeshNormalMaterial</title>
+
+  <style type="text/css">
+
+    body {margin          : 0;
+          padding         : 0;
+          overflow        : hidden;
+          background-color:#010316;
+         }
+
+  </style>
+
+  <script type="text/javascript" src="http://threejs.org/build/three.min.js"></script>
+  <script type="text/javascript" src="../_requisites/Detector.js"></script>
+  <script type="text/javascript" src="../_requisites/TrackballControls.js"></script>
+
+  <script type="text/javascript">
+
+    //  Global variables, used in init() and animate()
+    var cube,
+        scene,
+        camera,
+        controls,
+        renderer;
+
+    function main() {
+        init   ();
+        init_control();
+        animate();
+    }
+
+    function init_control() {
+      
+        controls = new THREE.TrackballControls(camera);
+
+        controls.rotateSpeed  = 4.0;
+        controls.zoomSpeed    = 1.2;
+        controls.panSpeed     = 0.8;
+
+        controls.noZoom       = false;
+        controls.noPan        = false;
+
+        controls.staticMoving = true;
+        controls.dynamicDampingFactor = 0.3;
+
+        controls.keys = [ 65, 83, 68 ]; // Do they even work? Should correspond to A, S and D.
+
+//      controls.addEventListener('change', ...);
+      
+    }
+
+    function init() {
+
+        var SCREEN_WIDTH  = window.innerWidth;
+        var SCREEN_HEIGHT = window.innerHeight;
+  
+        scene = new THREE.Scene();
+  
+        camera = new THREE.PerspectiveCamera( 
+               45                          , // view angle
+               SCREEN_WIDTH / SCREEN_HEIGHT, // aspect
+               0.1                         , // near
+               17000000);                    // far
+  
+               camera.position.set(-.5, 2.0, 3.0);
+               camera.lookAt(scene.position);   // TODO
+  
+        renderer = Detector.webgl ? 
+                       new THREE.WebGLRenderer( {antialias:true} ) :
+                       new THREE.CanvasRenderer(); 
+        
+        renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+        document.body.appendChild(renderer.domElement);
+  
+        var geometry = new THREE.BoxGeometry(1,1,1); 
+        var material = new THREE.MeshNormalMaterial();
+        
+        cube = new THREE.Mesh(geometry, material);
+     
+        scene.add(camera);
+        scene.add(cube);
+
+    }
+
+    function animate() {
+      
+        requestAnimationFrame(animate);
+
+        controls.update();
+
+        renderer.render(scene, camera);
+    }
+
+  </script>
+
+</head>
+
+<body onload='main();'></body>
+
+</html>
