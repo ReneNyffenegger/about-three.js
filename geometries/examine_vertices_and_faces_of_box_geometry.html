@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!--
+
+      Examine «vertices» and «faces» properties of a box geometry.
+
+-->
+<html>
+<head>
+    <title>Examine the «vertices» and «faces» properties of a box geometry</title>
+    <script type="text/javascript" src="http://threejs.org/build/three.min.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+
+
+<script type="text/javascript">
+
+function vertices(geom) {
+
+    document.write("<h1>Vertices</h1>");
+
+    document.write("<table border=1><tr><td></td><td>x</td><td>y</td><td>z</td></tr>");
+    for (var vertex in geom.vertices) {
+      document.write("<tr><td><b>" + vertex + '</b></td>' +
+        "<td>" + geom.vertices[vertex].x + "</td>" +
+        "<td>" + geom.vertices[vertex].y + "</td>" +
+        "<td>" + geom.vertices[vertex].z + "</td></tr>");
+
+    }
+    document.write("</table>");
+  
+}
+
+function faces(geom) {
+
+    document.write("<h1>Faces</h1>");
+
+    document.write("<table border=1><tr><td></td><td>a</td><td>b</td><td>c</td></tr>");
+
+    for (var face in geom.faces) {
+      document.write('<tr><td><b>' + face + '</b></td>' + 
+        "<td>" + geom.faces[face].a + "</td>" +
+        "<td>" + geom.faces[face].b + "</td>" +
+        "<td>" + geom.faces[face].c + "</td></tr>");
+    }
+    document.write("</table>");
+  
+}
+
+function main() {
+
+    var box_geometry = new THREE.BoxGeometry(1, 1, 1);
+
+    vertices(box_geometry);
+    faces   (box_geometry);
+
+
+
+}
+
+</script>
+</head>
+<body onload='main();'>
+
+</body>
+</html>
