@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <title>Line</title>
+  <script type="text/javascript" src="http://threejs.org/build/three.min.js"></script>
+  <style>
+      body {
+          margin: 0;
+          overflow: hidden;
+      }
+  </style>
+
+
+<script type="text/javascript">
+
+function init() {
+
+    var scene    = new THREE.Scene();
+    var camera   = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+    var renderer = new THREE.WebGLRenderer();
+
+    renderer.setClearColor(new THREE.Color(0xeeeeee));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    camera.position.x =-1.2;
+    camera.position.y = 1.4;
+    camera.position.z = 4;
+    camera.lookAt({x: 0, y:0, z: 0});
+
+
+    var line_mat = new THREE.LineBasicMaterial({ 
+                      opacity:      1.0,
+                      lineWidth:    9.0,                 // TODO: has no influence, see http://stackoverflow.com/questions/11638883/thickness-of-lines-using-three-linebasicmaterial
+                      vertexColors: THREE.VertexColors
+                  });
+
+    // x {
+
+    var line_x = new THREE.Geometry();
+    line_x.vertices.push(new THREE.Vector3(-0.2, 0, 0));
+    line_x.vertices.push(new THREE.Vector3( 1.0, 0, 0));
+    line_x.colors = [new THREE.Color(0xff0000)];
+
+
+    var line_x_ = new THREE.Line(line_x, line_mat);
+    line_x_.position.set(0, 0, 0);
+    scene.add(line_x_);
+
+    // }
+    // y {
+
+    var line_y = new THREE.Geometry();
+    line_y.vertices.push(new THREE.Vector3(0, -0.2, 0));
+    line_y.vertices.push(new THREE.Vector3(0,  1.0, 0));
+    line_y.colors = [new THREE.Color(0x00ff00)];
+
+
+    var line_y_ = new THREE.Line(line_y, line_mat);
+    line_y_.position.set(0, 0, 0);
+    scene.add(line_y_);
+
+    // }
+    // z {
+
+    var line_z = new THREE.Geometry();
+    line_z.vertices.push(new THREE.Vector3(0, 0, -0.2));
+    line_z.vertices.push(new THREE.Vector3(0, 0,  1.0));
+    line_z.colors = [new THREE.Color(0x0000ff)];
+
+
+    var line_z_ = new THREE.Line(line_z, line_mat);
+    line_z_.position.set(0, 0, 0);
+    scene.add(line_z_);
+
+    // }
+
+
+    document.getElementById('WebGL-output').appendChild(renderer.domElement);
+
+    render();
+
+    function render() {
+        line_x_.rotation.z +=  0.01;
+        line_y_.rotation.z +=  0.01;
+        line_z_.rotation.z +=  0.01;
+
+        line_x_.rotation.x +=  0.0013;
+        line_y_.rotation.x +=  0.0013;
+        line_z_.rotation.x +=  0.0013;
+
+        requestAnimationFrame(render);
+        renderer.render(scene, camera);
+    }
+
+}
+
+
+</script>
+</head>
+<body onload='init();'>
+
+  <div id="WebGL-output"></div>
+
+</body>
+</html>
