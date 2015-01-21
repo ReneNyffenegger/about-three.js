@@ -1,4 +1,1 @@
-about-three.js
-==============
-
-About three.js
+# about three.js
